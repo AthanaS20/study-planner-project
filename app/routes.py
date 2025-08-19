@@ -1,4 +1,4 @@
-from app import app
+from app import app, models
 from flask import render_template, url_for
 
 @app.route("/")
@@ -12,3 +12,4 @@ def register():
 @app.route("/login")
 def login():
     return render_template("login.html")
+

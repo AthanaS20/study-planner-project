@@ -4,11 +4,19 @@ from flask_login import LoginManager, UserMixin
 from flask import render_template, url_for
 
 
+
 app = Flask(__name__)
 db = SQLAlchemy(app)
 app.config['SECRET_KEY'] = 'passwddev'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:32281149@localhost:5432/plannerdb'
 login_manager = LoginManager(app)
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(user_id):
+    return 
+
 
 @app.route("/")
 def index():

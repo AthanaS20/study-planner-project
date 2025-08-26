@@ -1,10 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-      <title>Login</title>
-    </head>
-    <body>
-       <h1>Login Page</h1>
-       <a href="{{url_for('register')}}">Don't have an account? Sign up</a>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Use a simple font like 'Inter' -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for a cleaner look */
+        .login-card-container {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="login-card-container bg-white p-6 md:p-12 rounded-2xl flex flex-col md:flex-row max-w-5xl mx-auto m-4 overflow-hidden">
+        <!-- Left Section (Image) - Hidden on smaller screens -->
+        <div class="hidden md:block w-full md:w-1/2 bg-blue-50 p-6 rounded-l-2xl flex items-center justify-center">
+            <img 
+                src="{{ url_for('static', filename='ilustration_login.jpg') }}" 
+                alt="A stylized illustration of a mobile login screen with two people and a large padlock, symbolizing digital security."  
+                class="w-full h-auto object-cover rounded-xl"
+                onerror="this.onerror=null;this.src='https://placehold.co/600x600/bde0fe/000000?text=Login+Illustration';"
+            >
+        </div>
+
+        <!-- Right Section (Login Form) -->
+        <div class="w-full md:w-1/2 p-6 flex flex-col justify-center space-y-6">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900">Welcome Back! 👋</h2>
+                <p class="mt-2 text-sm text-gray-600">
+                    Please sign in to continue your studies.
+                </p>
+            </div>
+
+            <!-- The Flask form action should be here, update with your route -->
+            <form action="{{ url_for('login') }}" method="POST" class="space-y-6">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                    <div class="mt-1">
+                        <input 
+                            id="username" 
+                            name="username" 
+                            type="text" 
+                            autocomplete="username" 
+                            required 
+                            class="appearance-none block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        >
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <div class="mt-1">
+                        <input 
+                            id="password" 
+                            name="password" 
+                            type="password" 
+                            autocomplete="current-password" 
+                            required 
+                            class="appearance-none block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        >
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div class="text-sm">
+                        <a href="{{ url_for('register') }}" class="font-medium text-blue-600 hover:text-blue-500">
+                            Don't have an account? Register
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <button 
+                        type="submit" 
+                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transform transition-transform duration-200 hover:scale-105"
+                    >
+                        Sign In
+                    </button>
+                </div>
+            </form>
+
+            <!-- Flask Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="mt-4 space-y-2">
+                        {% for category, message in messages %}
+                            <div class="rounded-md p-3 text-sm {% if category == 'success' %}bg-green-100 text-green-800{% elif category == 'danger' %}bg-red-100 text-red-800{% endif %}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+        </div>
+    </div>
+</body>
 </html>

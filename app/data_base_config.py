@@ -3,5 +3,5 @@ postgresql = {
     'password': '32281149',
     'pghost': 'localhost',
     'pgport': 5432,
-    'pddb': 'plannerdb'
+    'pgdb': 'plannerdb'
 }
